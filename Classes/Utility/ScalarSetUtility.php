@@ -29,21 +29,33 @@ class ScalarSetUtility {
 	/**
 	 * Returns a set containing the elements that are in setA and setB
 	 *
-	 * @param scalar[] $setA
-	 * @param scalar[] $setB
+	 * @param scalar[][] $sets
 	 * @return scalar[]
 	 */
-	public static function intersection(array $setA, array $setB) {
-		$resultSet = [];
+	public static function intersection(...$sets) {
+        $resultSet = current($sets);
 
-		foreach ($setA as $element) {
-			if (in_array($element, $setB)) {
-				$resultSet[] = $element;
-			}
-		}
+        foreach ($sets as $set) {
+            foreach ($resultSet as $key=>$element) {
+                if (!in_array($element, $set)) {
+                    unset($resultSet[$key]);
+                }
+            }
+        }
 
 		return $resultSet;
 	}
+
+    /**
+    * Returns true if all the sets have the same elements, false otherwise
+    *
+    * @param scalar[][] ...$sets
+    * @return boolean
+    */
+    public static function isIdentical(...$sets) {
+        $resultingSet = self::symmetricDifference($sets);
+        return (count($resultingSet) === 0);
+    }
 
 	/**
 	 * Shortcut function for checking if the intersection of setA and setB is empty
