@@ -1,0 +1,14 @@
+{
+	"name": "etg24/playground",
+	"type": "neos-package",
+	"description": "",
+	"require": {
+		"neos/flow": "4.1.*",
+		"flowpack/jobqueue-common": "2.1.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"Etg24\\Playground\\": "Classes"
+		}
+	}
+}
